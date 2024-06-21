@@ -22,12 +22,12 @@ class TweetRepository {
 
   async getWithComment(id) {
     try {
-      const tweet = await Tweet.findById(id).populate('comments')
+      const tweet = await Tweet.findById(id).populate('comments').lean()
       return tweet;
     } catch (error) {
       console.log(error)
     }
-  }
+  } 
 
   async update(id,data) {
     try {
@@ -36,12 +36,21 @@ class TweetRepository {
     } catch (error) {
       console.log(error)
     }
-  }
+  }   
 
   async destroy(id) {
     try {
       const tweet = await Tweet.findByIdAndDelete(id)
       return tweet;
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getAll(offset,limit){
+    try {
+      const tweets = await Tweet.find().skip(offset).limit(limit)
+      return tweets;
     } catch (error) {
       console.log(error)
     }

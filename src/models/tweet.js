@@ -18,6 +18,11 @@ const tweetSchema = new Schema({
 }, { timestamps: true });
 
 
+// vertual schema for with name contentWithEmail and getter function to return the content with the userEmail 
+tweetSchema.virtual('contentWithEmail').get(function() {
+  return `${this.content} by ${this.userEmail}`;
+}); 
+
 const Tweet = mongoose.model('Tweet', tweetSchema);
 
 module.exports = Tweet;

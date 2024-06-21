@@ -9,6 +9,6 @@ app.listen(3000, async (req, res) => {
   console.log('Database connected');
 
   const tweetRepo = new TweetRepository();
-  const tweet  = await tweetRepo.getWithComment('6672cb9fea0ff0d4151007ab')
-  console.log(tweet);
+  const tweets = await tweetRepo.getAll(0, 10);
+  console.log(tweets[0].contentWithEmail);
 });
