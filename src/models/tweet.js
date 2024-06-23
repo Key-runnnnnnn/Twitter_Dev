@@ -5,23 +5,15 @@ const tweetSchema = new Schema({
   content: {
     type: String,
     required: true,
+    max:[250,"Tweets cannot be more than 250 chars"]
   },
-  userEmail: {
-    type: String
-  },
-  comments: [
+  hashtags:[
     {
-      type: Schema.Types.ObjectId,
-      ref: 'Comment'
+      type:mongoose.Schema.Types.ObjectId,
+      ref:'Hashtag'
     }
   ]
 }, { timestamps: true });
-
-
-// vertual schema for with name contentWithEmail and getter function to return the content with the userEmail 
-tweetSchema.virtual('contentWithEmail').get(function() {
-  return `${this.content} by ${this.userEmail}`;
-}); 
 
 // mongoose hooks
 tweetSchema.pre('save',function(next){
